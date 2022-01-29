@@ -1,0 +1,17 @@
+{
+  "name": "cherryblossomfalls",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.7.2"
+  },
+  "dependencies": {
+    "dat.gui": "^0.7.7",
+    "ogl": "^0.0.81",
+    "three": "^0.137.4"
+  }
+}
