@@ -3,7 +3,8 @@ attribute vec3 normal;
 attribute vec3 offset;
 attribute vec3 random;
 attribute vec2 uv;
-uniform mat4 modelViewMatrix;
+// uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform float time;
 uniform vec3 range;
@@ -79,5 +80,5 @@ void main() {
   mat4 rotateSelfMat = rotateMatrix4(vec3(360. * sNoise.r, 360. * sNoise.g, 360. * sNoise.b));
   vec4 petalsPos = translateMat * rotateSelfMat * vec4( position, 1.0 );
 
-  gl_Position = projectionMatrix * modelViewMatrix * petalsPos;
+  gl_Position = projectionMatrix * viewMatrix * petalsPos;
 }
