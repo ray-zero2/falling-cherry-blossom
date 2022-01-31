@@ -3,8 +3,7 @@ attribute vec3 normal;
 attribute vec3 offset;
 attribute vec3 random;
 attribute vec2 uv;
-uniform mat4 modelMatrix;
-uniform mat4 viewMatrix;
+uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
 uniform float time;
 uniform vec3 range;
@@ -72,13 +71,13 @@ void main() {
   fNoise = fNoise * 2. - 1.; // noiseの値を -1 ~ 1の範囲に変更
   sNoise = sNoise * 2. - 1.; // noiseの値を -1 ~ 1の範囲に変更
 
-  vec3 pos = position;
-  // pos.y = mod(position.y, range.y/2.) ;
-  mat4 translateMat = translateMatrix4(offset);
-  mat4 rotateSelfMat = rotateMatrix4(vec3(360. * sNoise.r, 360. * sNoise.g, 360. * sNoise.b));
-  vec4 mPos = modelMatrix * translateMat * rotateSelfMat * vec4( pos, 1.0 );
-  mPos.x = range.x - mod(mPos.x + range.x / 2. + time * 5. * random.x , range.x) - range.x / 2.;
-  mPos.y = range.y - mod(mPos.y + range.y / 2. + time * 5. * random.y , range.y) - range.y / 2.;
+  vec3 petalPos = offset;
+  petalPos.x = range.x - mod(petalPos.x + range.x / 2. + time * 5. * random.x , range.x) - range.x / 2.;
+  petalPos.y = range.y - mod(petalPos.y + range.y / 2. + time * 5. * random.y , range.y) - range.y / 2.;
 
-  gl_Position = projectionMatrix * viewMatrix * mPos;
+  mat4 translateMat = translateMatrix4(petalPos);
+  mat4 rotateSelfMat = rotateMatrix4(vec3(360. * sNoise.r, 360. * sNoise.g, 360. * sNoise.b));
+  vec4 petalsPos = translateMat * rotateSelfMat * vec4( position, 1.0 );
+
+  gl_Position = projectionMatrix * modelViewMatrix * petalsPos;
 }
