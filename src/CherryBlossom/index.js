@@ -37,6 +37,7 @@ export default class WebGLContent {
 
     this.stats = new Stats()
     this.gui = new GUI();
+    this.gui.closed = true;
 
     this.init().then(this.start.bind(this));
   }
@@ -59,7 +60,9 @@ export default class WebGLContent {
     });
     this.petal.position.set(0, 0 ,0);
     this.scene.add(this.petal);
-    this.camera.init();
+    this.camera.init({
+      gui: this.gui
+    });
     this.setRenderer();
     this.bind();
 

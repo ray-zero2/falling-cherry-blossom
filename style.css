@@ -12,15 +12,11 @@ body {
 
 .canvas-wrapper {
   width: 100vw;
-  min-width: 700px;
-  padding: 30px;
-  /* margin: 0px auto; */
-  height: 700px;
+  height: 100vh;
 }
 
 canvas {
   display: block;
-  border: 1px solid red;
   width: 100%;
   height: 100%;
 }

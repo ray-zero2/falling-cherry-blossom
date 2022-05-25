@@ -5,7 +5,13 @@ export default class Camera extends THREE.PerspectiveCamera {
   constructor(options = {}) {
     super(options?.fov, options?.aspect, options?.near, options?.far);
     this.time = 0;
+    this.params = {
+      posX: 45,
+      posY: 10,
+      posZ: 75,
+    }
     this.enableControl = options?.enableControl;
+    // this.gui = options?.gui;
 
     if (!options?.canvas) return;
     if (!this.enableControl) return;
@@ -15,8 +21,11 @@ export default class Camera extends THREE.PerspectiveCamera {
   }
 
   init() {
-    this.position.set(0, 5, 45);
+    const {posX, posY, posZ} = this.params;
+    this.position.set(posX, posY, posZ);
     this.lookAt(new THREE.Vector3(0, 0, 0));
+
+    // if(this.gui) this.paramSetting();
   }
 
   resize(resolution) {
@@ -32,4 +41,10 @@ export default class Camera extends THREE.PerspectiveCamera {
     if (!this.controls) return;
     this.controls.update();
   }
+
+  // paramSetting() {
+  //   this.gui.add(this.setting, 'posX', 0, 100, 1);
+  //   this.gui.add(this.setting, 'posY', 0, 100, 1);
+  //   this.gui.add(this.setting, 'posZ', 0, 100, 1);
+  // }
 }
