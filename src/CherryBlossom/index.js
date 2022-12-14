@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module'
 import { GUI } from 'dat.gui';
+import AnimationFramer from '@ray-zero2/animation-framer';
 
 import Camera from './Camera';
 import Petal from './petals/Petal';
@@ -32,12 +33,12 @@ export default class WebGLContent {
       enableDamping: true,
       dampingFactor: 0.05
     });
-    this.clock = new THREE.Clock(true);
     this.petal = null;
+    this.framer = AnimationFramer.getInstance();
 
     this.stats = new Stats()
     this.gui = new GUI();
-    this.gui.closed = true;
+    this.gui.closed = false;
 
     this.init().then(this.start.bind(this));
   }
@@ -65,6 +66,11 @@ export default class WebGLContent {
     });
     this.setRenderer();
     this.bind();
+
+    this.framer.add({
+      id: 'cherryBlossom',
+      update: this.update.bind(this)
+    });
 
     // gridHelper
     const gridHelper = new THREE.GridHelper(200, 50);  // 引数は サイズ、1つのグリッドの大きさ
@@ -97,12 +103,10 @@ export default class WebGLContent {
 
 
   start() {
-    this.animate();
+    this.framer.start();
   }
 
-  animate() {
-    requestAnimationFrame(this.animate.bind(this));
-    const deltaTime = this.clock.getDelta();
+  update({ deltaTime }) {
     this.time += deltaTime;
     this.camera.update(deltaTime);
     this.petal.update(deltaTime);
