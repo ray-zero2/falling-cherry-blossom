@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module'
-import { GUI } from 'dat.gui';
+import { GUI } from 'lil-gui';
 import AnimationFramer from '@ray-zero2/animation-framer';
 
 import Camera from './Camera';

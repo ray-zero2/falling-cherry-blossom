@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "@ray-zero2/animation-framer": "ray-zero2/animation-framer",
-    "dat.gui": "^0.7.7",
-    "ogl": "^0.0.81",
+    "lil-gui": "^0.17.0",
     "three": "^0.137.4"
   }
 }
